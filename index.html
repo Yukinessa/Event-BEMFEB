@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/argentum-sans" type="text/css"/>
+    <title>Seminar FEB</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs12 col-xs12"></div>
+            <div class="col-md-4 col-sm-4 col-xs12">
+
+                    <form id="main-form" method="POST" action="http://bemfeb.chickenkiller.com/registrant">
+                            <div class="form-group" >
+                              <label for="nameInput">Nama</label>
+                              <input name="name" id="name" placeholder="Nama" type="text" class="form-control" aria-describedby="nameInput" required>
+                              <small id="nameHelp" class="form-text text-muted">Nama yang dimasukkan akan menjadi nama pada sertifikat</small>
+                            </div>
+                            
+                            <div class="form-group" >
+                              <label for="nimInput">NIM</label>
+                              <input name="nim" id="nim" placeholder="Nomor Induk Mahasiswa" type="text" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                    <label for="emailInput">Email</label>
+                                    <input name="email" id="email" placeholder="Email" type="email" class="form-control" required>
+                                    <small id="nameHelp" class="form-text text-muted">Anda akan menerima email berupa QR Code sesuai email tersebut</small>  
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="emailInput">Nomor HP</label>
+                                  <input name="phone" id="phone" placeholder="Nomor HP" type="tel" maxlength="12" class="form-control" required>
+                                  <small id="numberInput" class="form-text text-muted">Dimohon untuk menggunakan Nomor HP yang aktif</small>  
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="institueInput">Institusi</label>
+                                <input name="institue" id="institue" placeholder="Institusi" type="text" class="form-control">
+                                <small id="institueInput" class="form-text text-muted">Asal Institusi</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="socmed">Sosial Media</label>
+                                <input name="socmed" id="socmed" placeholder="Sosial Media" type="text" class="form-control" required>
+                                <small id="socmedInput" class="form-text text-muted">Sosial Media Aktif</small>
+                            </div>
+
+                            <div class="form-group form-check">
+                              <input type="checkbox" class="form-check-input" id="validity" required>
+                              <label class="form-check-label" for="checkValidity">Anda sudah memasukkan data dengan benar</label>
+                            </div>
+                            
+                            <button id="send" class="btn btn-outline-warning btn-block">Submit</button>
+                    </form>
+          </div>
+      <div class="col-md-4 col-sm-4 col-xs15"></div>
+      </div>
+    </div> 
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    
+    <script>
+        $("#main-form").submit(function(e) {
+          e.preventDefault();
+
+          var form = $(this);
+          var url = form.attr('action');
+          var xhr = new XMLHttpRequest();
+    
+          $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function(data)
+                {
+                  Swal.fire(
+                  'Berhasil terdaftar!',
+                  'Silahkan check email anda untuk menerima QR-Code',
+                  'success')
+                    form[0].reset()
+                },
+                error: function(data){
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Terjadi kesalahan, silahkan coba kembali',
+                  })
+                }
+              });
+          });         
+  </script>
+
+  </body>
+</html>
